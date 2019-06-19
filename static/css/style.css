@@ -100,7 +100,7 @@ input[type="submit"],.agileinfo_chat a,.w3ls_footer_grid1_left p a,.w3l_sign_in_
 .w3l_sign_in_register{
 	float: right;
     margin-top:1em;
-    width: 25%;
+    /*width: 25%;*/
 }
 .w3l_sign_in_register ul li a{
 	color: #fff;

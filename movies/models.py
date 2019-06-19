@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils import timezone
 from movies.choices import select_genre, ACTION
 
 User = get_user_model()
@@ -17,10 +18,9 @@ class Movie(models.Model):
     title = models.CharField(max_length=50)
     runtime = models.SmallIntegerField(null=True, blank=False)
     poster = models.ImageField(upload_to=movie_directory_path)
-    detail = models.TextField(max_length=150)
-    trailer = models.URLField()
+    detail = models.TextField(max_length=250)
+    trailer = models.URLField(null=True, blank=True)
     genre = models.CharField(max_length=40, choices=select_genre, default=ACTION)
-    rating = models.FloatField(validators=[MinValueValidator(1), MaxValueValidator(100)])
     original_language = models.CharField(max_length=20)
     release_date = models.DateField()
     country = models.CharField(max_length=15)  # libreria django-cities
@@ -31,11 +31,11 @@ class Movie(models.Model):
         ordering = ['title']
 
     def __str__(self):
-        return '{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}'.format(self.title, self.detail, self.trailer, self.genre, self.rating, self.original_language, self.movie_director, self.movie_actor)
+        return '{0}, {1}, {2}, {3}, {4}, {5}, {6}'.format(self.title, self.detail, self.trailer, self.genre, self.original_language, self.movie_director, self.movie_actor)
 
 
 class MovieRate(models.Model):
-    rate = models.PositiveSmallIntegerField(null=True, blank=True)
+    rate = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], default=5)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)  # settings.AUTH_USER_MODEL
     comment = models.TextField(max_length=150)
@@ -64,3 +64,9 @@ class MovieActor(models.Model):
 
     def __str__(self):
         return '{0}, {1}'.format(self.name, self.age)
+
+
+class UserUniqueToken(models.Model):
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
+    token = models.CharField(max_length=100)
+    datetime = models.DateTimeField(auto_now_add=timezone.now)

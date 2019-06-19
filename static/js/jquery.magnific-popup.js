@@ -167,7 +167,7 @@ MagnificPopup.prototype = {
 			}
 		} else {
 			mfp.items = $.isArray(data.items) ? data.items : [data.items];
-			mfp.index = data.index || 0;
+			mfp.index = data.principal || 0;
 		}
 
 		// if popup is already opened - we just update the content
@@ -1640,7 +1640,7 @@ $.magnificPopup.registerModule(IFRAME_NS, {
 			var iframeSt = mfp.st.iframe;
 				
 			$.each(iframeSt.patterns, function() {
-				if(embedSrc.indexOf( this.index ) > -1) {
+				if(embedSrc.indexOf( this.principal ) > -1) {
 					if(this.id) {
 						if(typeof this.id === 'string') {
 							embedSrc = embedSrc.substr(embedSrc.lastIndexOf(this.id)+this.id.length, embedSrc.length);
@@ -1736,13 +1736,13 @@ $.magnificPopup.registerModule('gallery', {
 
 			_mfpOn('UpdateStatus'+ns, function(e, data) {
 				if(data.text) {
-					data.text = _replaceCurrTotal(data.text, mfp.currItem.index, mfp.items.length);
+					data.text = _replaceCurrTotal(data.text, mfp.currItem.principal, mfp.items.length);
 				}
 			});
 
 			_mfpOn(MARKUP_PARSE_EVENT+ns, function(e, element, values, item) {
 				var l = mfp.items.length;
-				values.counter = l > 1 ? _replaceCurrTotal(gSt.tCounter, item.index, l) : '';
+				values.counter = l > 1 ? _replaceCurrTotal(gSt.tCounter, item.principal, l) : '';
 			});
 
 			_mfpOn('BuildControls' + ns, function() {
