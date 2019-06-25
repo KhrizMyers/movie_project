@@ -38,7 +38,8 @@
                     if (slide.image === -1) {
                         throw ("Structure error: item has no img tag.");
                     }
-                    slide.title = ($this.find("p.title").size() > 0) ? $this.find("p.title").first().html() : "";
+                    slide.rate = ($this.find("h1.rate").size() > 0) ? $this.find("h1.rate").first().html() : "";
+                    slide.title = ($this.find("h1.title").size() > 0) ? $this.find("h1.title").first().html() : "";
                     slide.description = ($this.find("p.description").size() > 0) ? $this.find("p.description").first().html() : "";
                     base.slides.push(slide);
                 });
@@ -54,7 +55,7 @@
             } else {
                 domdocument += "<div class='slidey-row row'><div class='slidey-image col-md-12'><div class='slidey-overlay'>";
             }
-            domdocument += "<p class='slidey-overlay-title'></p><p class='slidey-overlay-description'></p>";
+            domdocument += "<h1 class='slidey-overlay-rate'></h1><h1 class='slidey-overlay-title'></h1><p class='slidey-overlay-description'></p>";
             domdocument += "<span class='slidey-progress'></span>";
             domdocument += "</div></div><div class='slidey-list col-md-4'></div></div>";
             // append new structure
@@ -66,6 +67,7 @@
             base.layout.overlay = {};
             base.layout.overlay.progressWidth = -1;
             base.layout.$overlay = base.$el.find(".slidey-overlay").first();
+            base.layout.overlay.$rate = base.$el.find(".slidey-overlay-rate").first();
             base.layout.overlay.$title = base.$el.find(".slidey-overlay-title").first();
             base.layout.overlay.$description = base.$el.find(".slidey-overlay-description").first();
             base.layout.overlay.$progress = base.$el.find(".slidey-progress").first();
@@ -177,6 +179,7 @@
                     base.layout.$list.find("li").eq(slideIndex).addClass("slidey-active");
                 }
                 base.layout.$image.css("background-image", "url(" + base.slides[slideIndex].image + ")");
+                base.layout.overlay.$rate.empty().append(base.slides[slideIndex].rate);
                 base.layout.overlay.$title.empty().append(base.slides[slideIndex].title);
                 base.layout.overlay.$description.empty().append(base.slides[slideIndex].description);
                 base.layout.$overlay.fadeIn("fast");

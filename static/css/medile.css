@@ -257,9 +257,9 @@ i.glyphicon.glyphicon-play-circle {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-	-webkit- border-radius: 50%;
-	-0- border-radius: 50%;
-	-moz- border-radius: 50%;
+	-webkit-border-radius: 50%;
+	/*-0-border-radius: 50%;*/
+	-moz-border-radius: 50%;
 }
 .ribben p {
     font-size:0.9em;
@@ -292,6 +292,9 @@ h4.latest-text {
     margin-bottom: 1em;
     padding: 0.3em 0.5em;
     margin-left: 3em;
+}
+h4.detail_movie{
+    margin-top: 2em;
 }
 .review-slider {
     margin: 1.4em 0 1.4em 0;

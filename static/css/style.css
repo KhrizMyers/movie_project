@@ -223,9 +223,9 @@ ul.dropdown-menu.multi-column ul li a:hover{
 a.w3_play_icon span,a.w3_play_icon1 span,a.w3_play_icon2 span {
     position: absolute;
     color: #fff;
-    font-size:4.5em;
-    left: 42%;
-    top: 36%;
+    font-size:4em;
+    left: 25%;
+    top: 25%;
 }
 .agile_tv_series_grid_right{
 	background:#FF8D1B;
@@ -1099,8 +1099,8 @@ h3.head {
 		padding: 2em 0;
 	}
 	a.w3_play_icon span, a.w3_play_icon1 span, a.w3_play_icon2 span {
-		left: 49%;
-		top: 42%;
+		left: 39%;
+		top: 25%;
 	}
 	.agile_tv_series_grid_right {
 		min-height: inherit;
@@ -1202,6 +1202,10 @@ h3.head {
 	}
 }
 @media (max-width: 736px){
+    .log_in{
+        text-align: right !important;
+        margin: 0.9em 0 0 0 !important;
+    }
 	.w3l_sign_in_register {
 		width: 100%;
 		float: none;
@@ -1215,6 +1219,10 @@ h3.head {
 	}
 }
 @media (max-width: 667px){
+    .title_detail_{
+    padding-bottom: 2em !important;
+    }
+
 	.agile_mid_2_home {
 		width: 90%;
 	}
@@ -1222,7 +1230,8 @@ h3.head {
 		font-size: 1.3em !important;
 	}
 	a.w3_play_icon span, a.w3_play_icon1 span, a.w3_play_icon2 span {
-		left: 47%;
+		left: 16%;
+        top: 35%;
 	}
 	.w3ls_footer_grid_left1_pos input[type="email"] {
 		width: 74%;
@@ -1513,4 +1522,12 @@ h3.head {
 	h3.head {
 		font-size: 1.8em;
 	}
+}
+
+.title_detail{
+    padding-bottom: 1em;
+}
+
+.title_detail_{
+    padding-bottom: 10em;
 }

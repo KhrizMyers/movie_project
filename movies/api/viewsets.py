@@ -1,12 +1,16 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from movies.models import Movie
 from movies.api.serializer import MovieSerializer
+from movies.api.pagination import StandardResultsSetPagination
 
 
 # list GET | retrieve GET | create POST | update PUT | partial_update PATCH | destroy DELETE
 class TodoViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+    pagination_class = StandardResultsSetPagination
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('title', 'genre', 'release_date', 'country', 'original_language')
 
 
 """class MovieView(ListCreateAPIView):

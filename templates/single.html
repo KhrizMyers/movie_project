@@ -1,7 +1,110 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block single %}
+{% block banner %}
+    <h4 class="latest-text w3_latest_text detail_movie">Detail Movie</h4>
+    <div class="container">
+
+        <div class="row" style="padding-bottom: 4em;">
+            <div class="col-sm-3 title_detail_">
+                <img src="{{ movie.poster.url }}" alt="{{ movie.title }}" title="{{ movie.title }}">
+                <a class="w3_play_icon" href="#small-dialog">
+                    <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h1>Title:</h1>
+                </div>
+                <div class="col-sm-10">
+                    <h1>{{ movie.title }}</h1>
+                </div>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h4><strong>Plot:</strong></h4>
+                </div>
+                <div class="col-sm-10">
+                    <h4>{{ movie.detail }}</h4>
+                </div>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h4><strong>Released:</strong></h4>
+                </div>
+                <div class="col-sm-10">
+                    <h4>{{ movie.release_date }}</h4>
+                </div>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h4><strong>Genre:</strong></h4>
+                </div>
+                <div class="col-sm-10">
+                    <h4>{{ movie.genre }}</h4>
+                </div>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h4><strong>Language:</strong></h4>
+                </div>
+                <div class="col-sm-10">
+                    <h4>{{ movie.original_language }}</h4>
+                </div>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h4><strong>Runtime:</strong></h4>
+                </div>
+                <div class="col-sm-10">
+                    <h4>{{ movie.runtime }} min</h4>
+                </div>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h4><strong>Country:</strong></h4>
+                </div>
+                <div class="col-sm-10">
+                    <h4>{{ movie.country }}</h4>
+                </div>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h4><strong>Director:</strong></h4>
+                </div>
+                <div class="col-sm-10">
+                    {% for director in movie.movie_director.all %}
+                        <h4>{{ director.name }}</h4>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h4><strong>Actors:</strong></h4>
+                </div>
+                <div class="col-sm-10">
+                    {% for actor in movie.movie_actor.all %}
+                        <h4>{{ actor.name }}</h4>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-9 title_detail">
+                <div class="col-sm-2">
+                    <h4><strong>Rate:</strong></h4>
+                </div>
+                <div class="col-sm-10">
+                    <h4>{{ rated_value }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- pop-up-box -->
+	<div id="small-dialog" class="mfp-hide">
+		<iframe src="{{ movie.trailer }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
+{% endblock %}
+
+{% comment %}{% block single %}
 <!-- single -->
     <div class="single-page-agile-main">
 <div class="container">
@@ -487,7 +590,6 @@
 			</div>	
 		</div>
 <!-- //w3l-medile-movies-grids -->
-{% endblock %}
-{% block banner %}{% endblock %}
+{% endblock %}{% endcomment %}
 {% block general %}{% endblock %}
 	

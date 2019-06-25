@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <div class="container">
+    {% for best_rated_movie in best_rated_movie_10 %}
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-4">
+                <div class="cover" style="background-image: url('{{ best_rated_movie_10.poster.url }}');">
+                </div>
+            </div>
+            <div class="col-8">
+                <h1 class="display-5">{{ best_rated_movie.title }}</h1>
+                <p class="lead">{{ best_rated_value_10|floatformat:2 }} / {{ best_rated_movie.movierate_set.count }}</p>
+                <p>{{ best_rated_movie.detail }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    <ul>
+        {% for movie in movie_list %}
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ movie.poster.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <p>{{ movie.best_rated_value }}</p>
+                        <a href="{% url 'movies:movie-detail' movie.slug %}"><h5 class="card-title">{{ movie.title }}</h5></a>
+                        <p class="card-text">{{ movie.detail }}</p>
+                        <a href="{% url 'movies:movie-detail' movie.slug %}" class="btn btn-primary">Go details!</a>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
