@@ -1,10 +1,12 @@
 import secrets
 
+from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import FormView, ListView, DetailView
 from rest_framework.generics import get_object_or_404, CreateAPIView, ListAPIView, RetrieveAPIView, \
@@ -15,10 +17,12 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import timedelta
 
-from movies.forms import UserForm
+from movies.forms import UserForm, DownloadForm
 from movies.models import Movie, UserUniqueToken, MovieRate
 from movies.api.serializer import MovieSerializer
 from rest_framework.permissions import IsAuthenticated
+
+from movies.tasks import download_task, send_email
 
 
 def index(request):
@@ -45,11 +49,16 @@ def comedy(request):
     return render(request, 'comedy.html')
 
 
-class MovieListView(ListView):
-    template_name = 'try.html'
-    queryset = Movie.objects.all()
-    #context = {'movie_list': movie}
-    #return render(request, 'base.html', context)
+class DownloadView(FormView):
+    template_name = 'download.html'
+    form_class = DownloadForm
+
+    def form_valid(self, form):
+        option = form.data.get('option')
+        movie_name = form.cleaned_data['search']
+        download_task.delay(option, movie_name)
+
+        return HttpResponseRedirect(reverse_lazy('movies:index'))
 
 
 # Despues de login
@@ -126,25 +135,14 @@ class Login(LoginView):
     template_name = 'index.html'
 
     def form_valid(self, form):
+        response = super(Login, self).form_valid(form)
         try:
             UserUniqueToken.objects.get(user_id=self.request.user.pk)
         except UserUniqueToken.DoesNotExist:
             UserUniqueToken.objects.create(token=secrets.token_hex(8), user_id=self.request.user)
 
-        return super(Login, self).form_valid(form)
+        return response
 
 
 class Logout(LogoutView):
-    # template_name = 'index.html'
-    pass
-# @login_required
-# def user_form(request, token):
-#     user_token = get_object_or_404(UserUniqueToken, token=token)
-#     if not user_token.user_id == request.user.id:
-#         print("Error: tokens not match")
-#
-#     time_now = timezone.now()
-#     if user_token.datetime > (time_now - timedelta(hours=2)):
-#         print("Preparing for logout")
-#
-#     return render(request, 'index.html')
+    next_page = '/'

@@ -16,15 +16,15 @@ def movie_directory_path(instance, filename):
 
 class Movie(models.Model):
 
-    title = models.CharField(max_length=50)
-    runtime = models.SmallIntegerField(null=True, blank=False)
+    title = models.CharField(max_length=100)
+    runtime = models.CharField(max_length=10, null=True)
     poster = models.ImageField(upload_to=movie_directory_path)
     img = models.ImageField(upload_to=movie_directory_path, null=True, blank=True)
     detail = models.TextField(max_length=250)
     trailer = models.URLField(null=True, blank=True)
     genre = models.CharField(max_length=40, choices=select_genre, default=ACTION)
     original_language = models.CharField(max_length=20)
-    release_date = models.DateField()
+    release_date = models.DateField(null=True, blank=True)
     country = models.CharField(max_length=15)  # libreria django-cities
     movie_director = models.ManyToManyField('MovieDirector')
     movie_actor = models.ManyToManyField('MovieActor')
@@ -57,7 +57,7 @@ class MovieRate(models.Model):
 
 class MovieDirector(models.Model):
     name = models.CharField(max_length=30)
-    age = models.SmallIntegerField()
+    age = models.SmallIntegerField(null=True, blank=True)
 
     class Meta:
         ordering = ['name', 'age']
@@ -67,8 +67,8 @@ class MovieDirector(models.Model):
 
 
 class MovieActor(models.Model):
-    name = models.CharField(max_length=30)
-    age = models.SmallIntegerField()
+    name = models.CharField(max_length=150)
+    age = models.SmallIntegerField(null=True, blank=True)
 
     class Meta:
         ordering = ['name', 'age']

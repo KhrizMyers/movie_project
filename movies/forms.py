@@ -6,3 +6,8 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+
+class DownloadForm(forms.Form):
+    search = forms.CharField()
+    option = forms.Select()

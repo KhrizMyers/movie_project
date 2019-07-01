@@ -38,13 +38,10 @@ $(window).load(function(){
 
 $(document).ready(function() {
 /*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-				};
-*/
+	$( '.navbar-default .navbar-nav a' ).on( 'click', function () {
+		$( '.navbar-default .navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
+		$( this ).parent( 'li' ).addClass( 'active' );
+	});*/
 
 			$().UItoTop({ easingType: 'easeOutQuart' });
 
@@ -86,7 +83,7 @@ $(document).ready(function() {
 
 		$("#owl-demo").owlCarousel({
 
-		  autoPlay: 2000, //Set AutoPlay to 3 seconds
+		  autoPlay: 3000, //Set AutoPlay to 3 seconds
 
 		  items : 5,
 		  itemsDesktop : [640,4],
@@ -185,3 +182,5 @@ $(document).ready(function() {
     });
 
 });
+
+

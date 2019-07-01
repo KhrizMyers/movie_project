@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 
-from movie_project.local_settings import HideSettings
+from movie_project.local_settings import HideSettings, HideSettingsEmail
 import os
 from django.urls import reverse_lazy
 
@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'django_celery_results',
 
-    'movies.apps.MoviesConfig'
+    'movies.apps.MoviesConfig',
+    'movies.api',
 ]
 
 REST_FRAMEWORK = {
@@ -151,6 +153,13 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_HOST = HideSettingsEmail.smtp
+EMAIL_PORT = HideSettingsEmail.port
+EMAIL_HOST_USER = HideSettingsEmail.email
+EMAIL_HOST_PASSWORD = HideSettingsEmail.password
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 LOGIN_REDIRECT_URL = 'movies:index'
 LOGOUT_REDIRECT_URL = 'movies:login'

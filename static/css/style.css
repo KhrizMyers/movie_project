@@ -158,7 +158,7 @@ input[type="submit"],.agileinfo_chat a,.w3ls_footer_grid1_left p a,.w3l_sign_in_
 }
 .navbar-nav > li {
     float: left;
-    border-right: 1px dotted #fff;
+    /*border-right: 1px dotted #fff;*/
     width:14.27%;
     text-align: center;
 }
@@ -1530,4 +1530,10 @@ h3.head {
 
 .title_detail_{
     padding-bottom: 10em;
+}
+
+img{
+    max-width: 100%;
+    width: auto !important;
+    height: auto !important;
 }
